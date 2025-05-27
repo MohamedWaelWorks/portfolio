@@ -5,12 +5,8 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ThemeProviderProps as NextThemesProviderProps } from "next-themes";
 import type { Attribute } from "next-themes";
 
-export interface ThemeProviderProps {
-  children: React.ReactNode;
+export interface ThemeProviderProps extends Omit<NextThemesProviderProps, "attribute"> {
   attribute?: Attribute | Attribute[];
-  defaultTheme?: string;
-  enableSystem?: boolean;
-  disableTransitionOnChange?: boolean;
 }
 
 export function ThemeProvider({ 
