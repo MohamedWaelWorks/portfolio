@@ -1,24 +1,39 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Mohamed Wael - Portfolio",
+  title: "My Portfolio",
   description: "Full Stack Developer & UI/UX Designer",
+  keywords: ["Full Stack Developer", "UI/UX Designer", "Web Development", "Portfolio"],
+  authors: [{ name: "Developer" }],
+  creator: "Developer",
+  publisher: "Developer",
+  robots: "index, follow",
 };
 
-export default function RootLayout({
-  children,
-}: {
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
+
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <head />
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -27,24 +42,6 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
-        {/* Zoho Live Chat Inline Script */}
-        <Script id="zoho-inline" strategy="afterInteractive">
-          {`
-            window.$zoho = window.$zoho || {};
-            window.$zoho.salesiq = window.$zoho.salesiq || {
-              ready: function() {
-                // Customization placeholder: Add your customization code here
-              }
-            };
-          `}
-        </Script>
-        {/* Zoho Live Chat External Script */}
-        <Script
-          id="zsiqscript"
-          src="https://salesiq.zohopublic.com/widget?wc=siq01c879ad1e38d8bfba257d2548a2f3b091d7588dd4755948a356091447984eaf"
-          strategy="afterInteractive"
-          defer
-        />
       </body>
     </html>
   );
